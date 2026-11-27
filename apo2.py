@@ -73,3 +73,13 @@ def atualizar_estudante(conn: sqlite3.Connection) -> None:
             """,
             (2, "bruno.costa@exemplo.edu.br"),
         )
+
+def remover_estudante(conn: sqlite3.Connection) -> None:
+    with conn:
+        conn.execute(
+            """
+            DELETE FROM estudantes
+            WHERE nome = ?;
+            """,
+            ("Carla Souza",),
+        )
