@@ -47,3 +47,18 @@ def inserir_dados_iniciais(conn: sqlite3.Connection) -> None:
             ],
         )
 
+def consultar_join(conn: sqlite3.Connection, titulo: str) -> None:
+    print(f"\n--- {titulo} ---")
+    cursor = conn.execute("""
+        SELECT
+            e.id_estudante,
+            e.nome AS estudante,
+            e.email,
+            c.nome AS curso,
+            c.carga_horaria
+        FROM estudantes e
+        INNER JOIN cursos c ON e.id_curso = c.id_curso
+        ORDER BY e.id_estudante;
+    """)
+    for linha in cursor.fetchall():
+        print(linha)
