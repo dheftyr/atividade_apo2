@@ -101,3 +101,6 @@ def main() -> None:
         consultar_join(conn, "Consulta JOIN após DELETE com WHERE")
     finally:
         conn.close()
+
+if __name__ == "__main__":
+    main()
