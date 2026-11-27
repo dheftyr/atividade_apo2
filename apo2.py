@@ -62,3 +62,14 @@ def consultar_join(conn: sqlite3.Connection, titulo: str) -> None:
     """)
     for linha in cursor.fetchall():
         print(linha)
+
+def atualizar_estudante(conn: sqlite3.Connection) -> None:
+    with conn:
+        conn.execute(
+            """
+            UPDATE estudantes
+            SET id_curso = ?
+            WHERE email = ?;
+            """,
+            (2, "bruno.costa@exemplo.edu.br"),
+        )
