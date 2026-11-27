@@ -83,3 +83,21 @@ def remover_estudante(conn: sqlite3.Connection) -> None:
             """,
             ("Carla Souza",),
         )
+
+def main() -> None:
+    if DB_PATH.exists():
+        DB_PATH.unlink()
+
+    conn = conectar()
+    try:
+        criar_tabelas(conn)
+        inserir_dados_iniciais(conn)
+        consultar_join(conn, "Consulta JOIN após inserção inicial")
+
+        atualizar_estudante(conn)
+        consultar_join(conn, "Consulta JOIN após UPDATE com WHERE")
+
+        remover_estudante(conn)
+        consultar_join(conn, "Consulta JOIN após DELETE com WHERE")
+    finally:
+        conn.close()
