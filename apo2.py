@@ -28,3 +28,22 @@ def criar_tabelas(conn: sqlite3.Connection) -> None:
                 FOREIGN KEY (id_curso) REFERENCES cursos (id_curso)
             );
         """)
+
+def inserir_dados_iniciais(conn: sqlite3.Connection) -> None:
+    with conn:
+        conn.executemany(
+            "INSERT INTO cursos (nome, carga_horaria) VALUES (?, ?);",
+            [
+                ("Análise e Desenvolvimento de Sistemas", 2400),
+                ("Redes de Computadores", 2000),
+            ],
+        )
+        conn.executemany(
+            "INSERT INTO estudantes (nome, email, id_curso) VALUES (?, ?, ?);",
+            [
+                ("Ana Silva", "ana.silva@exemplo.edu.br", 1),
+                ("Bruno Costa", "bruno.costa@exemplo.edu.br", 1),
+                ("Carla Souza", "carla.souza@exemplo.edu.br", 2),
+            ],
+        )
+
